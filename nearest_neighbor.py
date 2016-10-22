@@ -68,14 +68,12 @@ def div_conquer_method(list_of_points):
     index = 0
     i = 0
     j = 1
-    while i < len(striped_down_list):
+    for points in striped_down_list:
         while j < 7:
-            j = j + i
-            temp_distance = get_distance(striped_down_list[i], striped_down_list[j])
+            temp_distance = get_distance(striped_down_list[i], striped_down_list[i + j])
             if ( temp_distance< minimum_d):
                 minimum_d = temp_distance
             j = j + 1
-
         i = i + 1
 
     return minimum_d
