@@ -64,6 +64,10 @@ def Div_Conq(pnts_list):
 	r_min = Div_Conq(R)
 	min_val = min(l_min,r_min)
 
+    # print "Left d : %f, Right d : %f" %(l_min, r_min)
+    # print "init minimum_d: %f" % min_val
+    # print '\n'
+
 	center_val = pnts_list[len(pnts_list)/2].x
 
 	M = copy.deepcopy(pnts_list)

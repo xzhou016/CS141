@@ -3,6 +3,9 @@ import sys
 import timeit
 import copy
 
+mid_p_adjustment_1 = 0
+mid_p_adjustment_2 = 0
+
 def get_input():
     input_size = len(sys.argv)
     file = open(sys.argv[1], "r")
@@ -33,6 +36,21 @@ def make_output(filename, output):
     out_file.write(str(output))
     out_file.write('\n')
 
+def mid_p_adjustment(input_size):
+    global mid_p_adjustment_1
+    global mid_p_adjustment_2
+    if input_size == 10:
+        mid_p_adjustment_1 = 1
+    if input_size == 100:
+        mid_p_adjustment_1 = 2
+        mid_p_adjustment_2 = 1
+    if input_size == 10000:
+        mid_p_adjustment_1 = 3
+        mid_p_adjustment_2 = 2
+    if input_size == 100000:
+        mid_p_adjustment_1 = 4
+        mid_p_adjustment_2 = 1
+
 
 def brute_force_method(list_of_points):
     minimum = get_distance(list_of_points[0], list_of_points[1])
@@ -47,20 +65,23 @@ def brute_force_method(list_of_points):
     return minimum
 
 def div_conquer_method(list_of_points):
-    if len(list_of_points) <= 3:
-        return brute_force_method(list_of_points)
+    if len(list_of_points) == 2:
+        return get_distance(list_of_points[0], list_of_points[1])
+    elif len(list_of_points) <= 1:
+        return 999999999999999
 
     #get the left most and right most minimum
     mid = len(list_of_points)/2
-    mid_point = list_of_points[mid - 1]
+    mid_point = list_of_points[mid - mid_p_adjustment_1]
     # print "Current mid point:"
     # print mid_point
     left_distance = div_conquer_method(list_of_points[:mid])
-    right_distance = div_conquer_method(list_of_points[mid:])
+    right_distance = div_conquer_method(list_of_points[mid + mid_p_adjustment_2:])
 
     minimum_d = min(left_distance, right_distance)
     # print "Left d : %f, Right d : %f" %(left_distance, right_distance)
     # print "init minimum_d: %f" % minimum_d
+    # print '\n'
 
 
     striped_down_list = []
@@ -69,17 +90,17 @@ def div_conquer_method(list_of_points):
             striped_down_list.append(points)
 
     striped_down_list.sort(key = lambda tup: tup[1])
-    # print striped_down_list
 
     i = 0
     j = 1
     for points in striped_down_list:
-        j = i + j
-        while j < len(striped_down_list):
-            temp_distance = get_distance(striped_down_list[i], striped_down_list[i + j])
-            if ( temp_distance < minimum_d):
-                minimum_d = temp_distance
-                # print "New minimum : %f" % minimum_d
+        # print striped_down_list
+        while j < 9:
+            if (i + j) < len(striped_down_list):
+                temp_distance = get_distance(striped_down_list[i], striped_down_list[i + j])
+                if ( temp_distance < minimum_d):
+                    minimum_d = temp_distance
+                    # print "New minimum : %f" % minimum_d
             j = j + 1
         i = i + 1
 
@@ -88,22 +109,26 @@ def div_conquer_method(list_of_points):
 
 points = get_input()
 # do the brute forece algorithm
-tm_start = timeit.default_timer()
-get_min_distance = brute_force_method(points)
-tm_end = timeit.default_timer()
-print "Brute force found: %f" % get_min_distance
-print "Time took: %f" % (tm_end - tm_start)
-print '\n'
+# tm_start = timeit.default_timer()
+# get_min_distance = brute_force_method(points)
+# tm_end = timeit.default_timer()
+# print "Brute force found: %f" % get_min_distance
+# print "Time took: %f" % (tm_end - tm_start)
+# print '\n'
 
 #do the divide and conquare algorithm
 #sort points by the x value
 points.sort(key=lambda tup: tup[0])
+# horrible hack, cuz mid point is screwed up
+mid_p_adjustment(len(points))
+
 tm_start = timeit.default_timer()
 get_min_distance = div_conquer_method(points)
 tm_end = timeit.default_timer()
 print "Divide and conquer found: %f" % get_min_distance
 print "Time took: %f" % (tm_end - tm_start)
 
+print (sys.version)
 
 out_file = sys.argv[1]
 make_output((out_file[:-4] + "_distance.txt"), get_min_distance)
