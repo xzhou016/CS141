@@ -1,4 +1,6 @@
 Usage
 nearest_neighbor.py input_<size>.txt
 
-compiled on Ubuntu 15.10 with python 2.7.10 (default, Oct 14 2015, 16:09:02) [GCC 5.2.1 20151010]
+note: you can delete brute force method from line 112 to 117 to just see the divide and conquer method
+
+compiled on windows 10 with python 3.5.2 (v3.5.2:4def2a2901a5, Jun 25 2016, 22:01:18) [MSC v.1900 32 bit (Intel)]

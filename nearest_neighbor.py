@@ -72,11 +72,11 @@ def div_conquer_method(list_of_points):
 
     #get the left most and right most minimum
     mid = len(list_of_points)/2
-    mid_point = list_of_points[mid - mid_p_adjustment_1]
+    mid_point = list_of_points[int(mid - mid_p_adjustment_1)]
     # print "Current mid point:"
     # print mid_point
-    left_distance = div_conquer_method(list_of_points[:mid])
-    right_distance = div_conquer_method(list_of_points[mid + mid_p_adjustment_2:])
+    left_distance = div_conquer_method(list_of_points[:int(mid)])
+    right_distance = div_conquer_method(list_of_points[int(mid + mid_p_adjustment_2):])
 
     minimum_d = min(left_distance, right_distance)
     # print "Left d : %f, Right d : %f" %(left_distance, right_distance)
@@ -109,12 +109,12 @@ def div_conquer_method(list_of_points):
 
 points = get_input()
 # do the brute forece algorithm
-# tm_start = timeit.default_timer()
-# get_min_distance = brute_force_method(points)
-# tm_end = timeit.default_timer()
-# print "Brute force found: %f" % get_min_distance
-# print "Time took: %f" % (tm_end - tm_start)
-# print '\n'
+tm_start = timeit.default_timer()
+get_min_distance = brute_force_method(points)
+tm_end = timeit.default_timer()
+print ("Brute force found: %f" % get_min_distance)
+print ("Time took: %f" % (tm_end - tm_start))
+print ('\n')
 
 #do the divide and conquare algorithm
 #sort points by the x value
@@ -125,8 +125,8 @@ mid_p_adjustment(len(points))
 tm_start = timeit.default_timer()
 get_min_distance = div_conquer_method(points)
 tm_end = timeit.default_timer()
-print "Divide and conquer found: %f" % get_min_distance
-print "Time took: %f" % (tm_end - tm_start)
+print ("Divide and conquer found: %f" % get_min_distance)
+print ("Time took: %f" % (tm_end - tm_start))
 
 print (sys.version)
 
