@@ -100,11 +100,11 @@ def Div_Conq(pnts_list):
 
 list = Read_Points_From_Command_Line_File()
 
-start = timeit.default_timer()
-nearest  = Brute_Force(list)
-print "Brute Force: %f" % nearest
-stop = timeit.default_timer()
-print stop - start
+# start = timeit.default_timer()
+# nearest  = Brute_Force(list)
+# print "Brute Force: %f" % nearest
+# stop = timeit.default_timer()
+# print stop - start
 
 #found online, used to sort by x value
 list = sorted(list, key = lambda point: point.x)
