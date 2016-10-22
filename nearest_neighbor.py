@@ -84,8 +84,8 @@ points = get_input()
 tm_start = timeit.default_timer()
 get_min_distance = brute_force_method(points)
 tm_end = timeit.default_timer()
-print "Brute force found: %f" % get_min_distance
-print "Time took: %f" % (tm_end - tm_start)
+# print "Brute force found: %f" % get_min_distance
+# print "Time took: %f" % (tm_end - tm_start)
 
 #do the divide and conquare algorithm
 #sort points by the x value
@@ -93,8 +93,8 @@ points.sort(key=lambda tup: tup[0])
 tm_start = timeit.default_timer()
 get_min_distance = div_conquer_method(points)
 tm_end = timeit.default_timer()
-print "Divide and conquer found: %f" % get_min_distance
-print "Time took: %f" % (tm_end - tm_start)
+# print "Divide and conquer found: %f" % get_min_distance
+# print "Time took: %f" % (tm_end - tm_start)
 # print "Brute force found: %f" % get_min_distance
 # print "Time took: %f" % (tm_end - tm_start)
 
