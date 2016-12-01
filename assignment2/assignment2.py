@@ -15,20 +15,46 @@ def BellmanFord(G):
     for i in range(len(G[0])):
         for j in range(len(G[0])):
             if i == j:
-                pathPairs[i][j] = 0;
+                pathPairs[i][j] = float(0);
+    # print(pathPairs)
+    # pathPairs[0][0] = 0
     # Fill in your Bellman-Ford algorithm here
     # The pathPairs list will contain the list of vertex pairs and their weights [((s,t),w),...]
-    for i in range(1, len(G[0]) - 1):
-        for e in range(len(G[0]))
-            for value in variable:
-                pass
-    print(pathPairs)
+    for a in range(1, len(G[0]) - 1):
+        for b in range(len(G[0])):
+            for c in range(len(G[0])):
+                for d in range(len(G[0])):
+                    if float(pathPairs[c][d]) > (float(pathPairs[b][c]) + float(G[1][c][d])) :
+                        pathPairs[c][d] = float(pathPairs[b][c]) + float(G[1][c][d])
+                        # print(float(pathPairs[b][c]) + float(G[1][c][d]))
+    for b in range(len(G[0])):
+        for c in range(len(G[0])):
+            for d in range(len(G[0])):
+                if float(pathPairs[c][d]) > (float(pathPairs[b][c]) + float(G[1][c][d])) :
+                    # print("false")
+                    return False
+    # print("BellmanFord: ", pathPairs)
     return pathPairs
 
 def FloydWarshall(G):
-    pathPairs=[]
+    # print(G)
+    pathPairs=[[0 for i in range(len(G[0]))] for j in range(len(G[0]))]
     # Fill in your Floyd-Warshall algorithm here
     # The pathPairs list will contain the list of vertex pairs and their weights [((s,t),w),...]
+    for i in range(len(G[0])):
+        for j in range(len(G[0])):
+            if i == j:
+                pathPairs[i][j] = 0
+            elif G[1][i][j] != float("Inf"):
+                pathPairs[i][j] = float(G[1][i][j])
+            else:
+                pathPairs[i][j] = float("Inf")
+    for i in range(len(G[0])):
+        for j in range(len(G[0])):
+            for k in range(len(G[0])):
+                pathPairs[i][j] = min(float(pathPairs[i][j]), float(pathPairs[i][k]) + float(pathPairs[k][j]))
+
+    # print("FloydWarshall: ", pathPairs)
     return pathPairs
 
 def readFile(filename):
@@ -84,10 +110,12 @@ def main(filename,algorithm):
         BellmanFord(G)
         end=time.clock()
         BFTime=end-start
-        FloydWarshall(G)
+
         start=time.clock()
+        FloydWarshall(G)
         end=time.clock()
         FWTime=end-start
+
         print("Bellman-Ford timing: "+str(BFTime))
         print("Floyd-Warshall timing: "+str(FWTime))
 
